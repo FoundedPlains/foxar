@@ -33,12 +33,6 @@ typedef struct {
     char *content;
 } FoxArFile;
 
-typedef struct {
-    FILE *archive;
-    FoxArFile *files;
-
-    unsigned long fileCount;
-
-} FoxArchive;
+typedef FILE* FoxArchive;
 
 #endif
