@@ -4,23 +4,23 @@
 #include <stdio.h>
 
 typedef enum {
-    NORMAL,
+    NORMAL = 0,
     HARD_LINK,
     SOFT_LINK
 } FoxArFileType;
 
 typedef struct {
-    char *path; // path - done
-    char *linkPath; // if link then path - done
-    int pathSize; // size of path ( max 4096 bytes ) - done
-    int mode; // file mode - perms - done
-    int oid; // owner id - done
-    int gid; // group id - done
-    unsigned long size; // size of file ( bytes ) - done
-    unsigned long lastM; // last modification UNIX time - done
-    int checksum; // header checksum - done
-    int linkPathSize; // size of path for link - done
-    FoxArFileType type;  // normal, hardlink, softlink - done
+    char *path; // path 
+    char *linkPath; // if link then path
+    int pathSize; // size of path ( max 4096 bytes )
+    int mode; // file mode - perms
+    int oid; // owner id
+    int gid; // group id
+    unsigned long size; // size of file ( bytes )
+    unsigned long lastM; // last modification UNIX time
+    unsigned long checksum; // header checksum
+    int linkPathSize; // size of path for link
+    int type;  // normal, hardlink, softlink
 } FoxArHeader;
 
 // saving
@@ -34,5 +34,18 @@ typedef struct {
 } FoxArFile;
 
 typedef FILE* FoxArchive;
+
+FoxArchive FoxArchive_New(char *path);
+FoxArchive FoxArchive_Read(char *path);
+
+int FoxArchive_Add(FoxArchive archive, char *path);
+
+int FoxArchive_Next(FoxArchive archive, FoxArFile *file);
+
+void FoxArchive_Save(FoxArchive archive);
+
+void writeData(void *data, size_t size, FILE* file);
+
+void readData(void *data, size_t size, FILE* file);
 
 #endif
